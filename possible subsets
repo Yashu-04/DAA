@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void backtrack(int* nums, int numsSize, int* subset, int subsetSize, int start, int** subsets, int* subsetsSize, int** subsetsColSize) {
+  
+    subsets[*subsetsSize] = malloc(subsetSize * sizeof(int));
+    for (int i = 0; i < subsetSize; i++) {
+        subsets[*subsetsSize][i] = subset[i];
+    }
+    (*subsetsColSize)[*subsetsSize] = subsetSize;
+    (*subsetsSize)++;
+    for (int i = start; i < numsSize; i++) {
+        subset[subsetSize] = nums[i];
+        backtrack(nums, numsSize, subset, subsetSize + 1, i + 1, subsets, subsetsSize, subsetsColSize);
+    }
+}
+
+int** subsets(int* nums, int numsSize, int* subsetsSize, int** subsetsColSize) {
+    
+    int totalSubsets = 1 << numsSize;  
+    int** subsets = malloc(totalSubsets * sizeof(int*));
+    *subsetsColSize = malloc(totalSubsets * sizeof(int));
+   
+    int* subset = malloc(numsSize * sizeof(int));
+    *subsetsSize = 0;
+    backtrack(nums, numsSize, subset, 0, 0, subsets, subsetsSize, subsetsColSize);
+    
+    free(subset);
+    
+    return subsets;
+}
+
+int main() {
+    int nums[] = {1, 2, 3};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int subsetsSize;
+    int* subsetsColSize;
+    
+    int** result = subsets(nums, numsSize, &subsetsSize, &subsetsColSize);
+    
+    printf("[");
+    for (int i = 0; i < subsetsSize; i++) {
+        printf("[");
+        for (int j = 0; j < subsetsColSize[i]; j++) {
+            printf("%d", result[i][j]);
+            if (j < subsetsColSize[i] - 1) {
+                printf(", ");
+            }
+        }
+        printf("]");
+        if (i < subsetsSize - 1) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
+    
+    for (int i = 0; i < subsetsSize; i++) {
+        free(result[i]);
+    }
+    free(result);
+    free(subsetsColSize);
+    
+    return 0;
+}
