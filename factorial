@@ -1,0 +1,22 @@
+#include<stdio.h>
+long int multiplyNumbers(int n);
+int main() {
+    int n;
+    int count=0;
+    printf("Enter a positive integer: ");
+    count++;
+    scanf("%d",&n);
+    count++;
+    printf("Factorial of %d = %ld", n, multiplyNumbers(n));
+    count++;
+	printf("\ntime complexity:%d",count);
+
+    return 0;
+}
+
+long int multiplyNumbers(int n) {
+    if (n>=1)
+        return n*multiplyNumbers(n-1);
+    else
+        return 1;
+}
