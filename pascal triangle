@@ -1,0 +1,36 @@
+#include <stdio.h>
+int count=0;
+int main() {
+   int rows, coef = 1, space, i, j;
+   count++;
+   printf("Enter the number of rows: ");
+   count++;
+   scanf("%d", &rows);
+   count++;
+   for (i = 0; i < rows; i++) {
+   	count++;
+      for (space = 1; space <= rows - i; space++){
+	  count++;
+         printf("  ");
+         count++;
+     }
+      for (j = 0; j <= i; j++) {
+      	count++;
+         if (j == 0 || i == 0){
+		 count++;
+            coef = 1;
+            count++;
+        }
+         else{
+		 count++;
+            coef = coef * (i - j + 1) / j;
+            count++;
+         printf("%4d", coef);
+         count++;
+     }
+      }
+      printf("\n");
+   }
+   printf("time complexity: %d",count);
+   return 0;
+}
