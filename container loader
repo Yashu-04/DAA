@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct {
+    int index;
+    int weight;
+} Container;
+
+
+int compareContainers(const void* a, const void* b) {
+    Container* containerA = (Container*)a;
+    Container* containerB = (Container*)b;
+    return containerB->weight - containerA->weight;
+}
+
+
+void computeContainerLoading(int* weights, int numContainers, int capacity) {
+    
+    Container* containers = malloc(numContainers * sizeof(Container));
+    for (int i = 0; i < numContainers; i++) {
+        containers[i].index = i + 1;
+        containers[i].weight = weights[i];
+    }
+
+    
+    qsort(containers, numContainers, sizeof(Container), compareContainers);
+
+  
+    int currentWeight = 0;
+    int numLoadedContainers = 0;
+    int* loadedContainers = malloc(numContainers * sizeof(int));
+
+ 
+    for (int i = 0; i < numContainers; i++) {
+        if (currentWeight + containers[i].weight <= capacity) {
+            currentWeight += containers[i].weight;
+            loadedContainers[numLoadedContainers] = containers[i].index;
+            numLoadedContainers++;
+        }
+    }
+
+   
+    printf("Loaded Containers: ");
+    for (int i = 0; i < numLoadedContainers; i++) {
+        printf("%d ", loadedContainers[i]);
+    }
+    printf("\n");
+
+  
+    free(containers);
+    free(loadedContainers);
+}
+
+int main() {
+    int weights[] = {50, 100, 30, 80, 90, 200, 150, 20};
+    int numContainers = sizeof(weights) / sizeof(weights[0]);
+    int capacity = 100;
+    computeContainerLoading(weights, numContainers, capacity);
+    return 0;
+}
