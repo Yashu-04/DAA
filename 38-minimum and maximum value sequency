@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+void printMinMaxSequence(int arr[], int size) {
+   
+    int min = arr[0];
+    int max = arr[0];
+    
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    
+    
+    int minIndex = 0;
+    int maxIndex = size - 1;
+    int sequence[size];
+    
+    for (int i = 0; i < size; i++) {
+        if (i % 2 == 0) {
+            sequence[i] = min;
+            minIndex++;
+        } else {
+            sequence[i] = max;
+            maxIndex--;
+        }
+    }
+    
+ 
+    printf("Output: (");
+    for (int i = 0; i < size; i++) {
+        printf("%d", sequence[i]);
+        if (i < size - 1) {
+            printf(", ");
+        }
+    }
+    printf(")\n");
+}
+
+int main() {
+    int arr[] = {3, 5, -4, 1, 8, 2, 0, 4};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    
+    printMinMaxSequence(arr, size);
+    
+    return 0;
+}
