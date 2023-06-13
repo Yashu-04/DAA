@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+bool isSubstring(const char* str, const char* substr) {
+    int lenStr = strlen(str);
+    int lenSubstr = strlen(substr);
+
+ 
+    for (int i = 0; i <= lenStr - lenSubstr; i++) {
+        int j;
+       
+        for (j = 0; j < lenSubstr; j++) {
+            if (str[i + j] != substr[j])
+                break;
+        }
+        
+        if (j == lenSubstr)
+            return true;
+    }
+
+   
+    return false;
+}
+
+int main() {
+    const char* str1 = "babad";
+    const char* substr1 = "shahad";
+    printf("Output for String: %s, Substring: %s: ", str1, substr1);
+    if (isSubstring(str1, substr1)) {
+        printf("Found\n");
+    } else {
+        printf("Not Found\n");
+    }
+
+    const char* str2 = "babad";
+    const char* substr2 = "daa";
+    printf("Output for String: %s, Substring: %s: ", str2, substr2);
+    if (isSubstring(str2, substr2)) {
+        printf("Found\n");
+    } else {
+        printf("Not Found\n");
+    }
+
+    const char* str3 = "babad";
+    const char* substr3 = "aba";
+    printf("Output for String: %s, Substring: %s: ", str3, substr3);
+    if (isSubstring(str3, substr3)) {
+        printf("Found\n");
+    } else {
+        printf("Not Found\n");
+    }
+
+    return 0;
+}
